@@ -27,12 +27,4 @@
        (string-append "Take one down and pass it around, "
                       (nth (- v 1)) " bottle" (pl (- v 1)) " of beer on the wall.")))))
 
-(define (string_of_list_element e)
-  (display e)
-  e)
-
-(define (sing)
-  (map string_of_list_element (apply append (map verse (reverse (range 0 99)))))
-  "")
-
-(sing)
+(apply display (apply append (map verse (reverse (range 0 3)))))
