@@ -18,14 +18,13 @@
 
 (define (verse v)
   (let ((pl (lambda (n) (if (= n 1) "" "s")))
-          (nth (lambda (c) (if (> c 0) (number->string c) "No more"))))
-    (if (= v 0)
-        (list "No more bottles of beer on the wall, no more bottles of beer,"
-              "Go to the store and buy some more, 99 bottles of beer on the wall.")
-        (list
-         (string-append (nth v) " bottle" (pl v) " of beer on the wall, "
-                        (nth v) " bottle" (pl v) " of beer,")
-         (string-append "Take one down and pass it around, "
-                        (nth (- v 1)) " bottle" (pl (- v 1)) " of beer on the wall.")))))
+        (nth (lambda (c) (if (> c 0) (number->string c) "No more"))))
+    (let ((bot (lambda (b) (string-append (nth b) " bottle" (pl v)))))
+      (if (= v 0)
+          (list "No more bottles of beer on the wall, no more bottles of beer,"
+                "Go to the store and buy some more, 99 bottles of beer on the wall.")
+          (list (string-append (bot v) " of beer on the wall, " (bot v) " of beer,")
+                (string-append "Take one down and pass it around, "
+                               (bot (- v 1)) " of beer on the wall."))))))
 
 (apply display (apply append (map verse (reverse (range 0 99)))))
