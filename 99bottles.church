@@ -1,0 +1,38 @@
+;; -*- Mode: Scheme -*-
+;;
+;; By Mike Gogulski <mike@gogulski.com> 14 November 2015
+;;
+;; Church is a probabilistic programming language designed for expressive
+;; description of generative models. Church is a derivative of Scheme with
+;; probabilistic semantics. Church was originally developed at MIT, primarily
+;; in the computational cognitive science group, run by Joshua Tenenbaum.
+;;
+;; Language home page: https://projects.csail.mit.edu/church/wiki/Church
+;;
+;; Tested under the webchurch (Javascript-based!) implementation online at:
+;; https://probmods.org/play-space.html
+;;
+;; webchurch seems a bit rough around the edges, which is why this 99 bottles
+;; implementation isn't nearly as impressive as it should be
+;;
+(define (verse v)
+  (let ((pl (lambda (n) (if (= n 1) "" "s")))
+        (nth (lambda (c) (if (> c 0) (number->string c) "No more"))))
+  (if (= v 0)
+      (list "No more bottles of beer on the wall, no more bottles of beer,"
+            "Go to the store and buy some more, 99 bottles of beer on the wall.")
+      (list
+       (string-append (nth v) " bottle" (pl v) " of beer on the wall, "
+                      (nth v) " bottle" (pl v) " of beer,")
+       (string-append "Take one down and pass it around, "
+                      (nth (- v 1)) " bottle" (pl (- v 1)) " of beer on the wall.")))))
+
+(define (string_of_list_element e)
+  (display e)
+  e)
+
+(define (sing)
+  (map string_of_list_element (apply append (map verse (reverse (range 0 99)))))
+  "")
+
+(sing)
