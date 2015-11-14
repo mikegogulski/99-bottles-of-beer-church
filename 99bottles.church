@@ -28,4 +28,4 @@
          (string-append "Take one down and pass it around, "
                         (nth (- v 1)) " bottle" (pl (- v 1)) " of beer on the wall.")))))
 
-(apply display (apply append (map verse (reverse (range 0 3)))))
+(apply display (apply append (map verse (reverse (range 0 99)))))
